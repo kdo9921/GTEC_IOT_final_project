@@ -1,5 +1,4 @@
-var led = function() {
-    var currentLed = document.getElementById("led").textContent;
+function led(led) { //1~4 : 각각, 0 : 전부 끄기, 5 : 전부 켜기
     var form = document.createElement('form');
     form.setAttribute('method', 'post'); 
     form.setAttribute('action', '/api/led');	
@@ -8,14 +7,11 @@ var led = function() {
         var hiddenField1 = document.createElement('input');
         hiddenField1.setAttribute('type', 'hidden'); 
         hiddenField1.setAttribute('name', "led");
-        hiddenField1.setAttribute('value', currentLed);
+        hiddenField1.setAttribute('value', led);
     document.body.appendChild(form);
     form.submit();	
 };
-document.addEventListener("DOMContentLoaded", function() {
-    var startbtn = document.getElementById("btn_led");
-    startbtn.addEventListener("click",led);
-});
+
 
 var fan = function() {
     var currentLed = document.getElementById("fan").textContent;
