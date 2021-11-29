@@ -1,9 +1,13 @@
 body {
-    background-color: #aaaaaa;
+    background-color: #9ce159;
 }
 #content {
     max-width: 1024px;
     margin: auto;
+}
+h1, h2 {
+    color: #ffffff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 .flex-container {
 
@@ -12,10 +16,28 @@ body {
     flex-basis: auto;
 }
 .item {
+    transform: scale(1.0);
+    transition-duration: 0.3s;
+    transition-property: transform;
     border: 1px solid #ffffff;
     background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     border-radius: 6px;
-    padding: 8px;
+    padding: 16px;
     margin: 16px;
+}
+.bookmark-item {
+    border-radius: 20px;
+    padding: 12px;
+    margin: 8px;
+}
+.item:hover, .item:focus, .item:active, .bookmark-item:hover, .bookmark-item:focus, .bookmark-item:active {
+    transform: scale(1.1);
+  }
+.item-title {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+.item-info {
+    font-size: 2.5em;
 }
