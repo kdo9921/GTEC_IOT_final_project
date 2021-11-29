@@ -49,13 +49,13 @@ def index():
 def ledToggle():
     global data
     led = request.form.get('led')
-    led = int(led)
-    ledCtrl(led)
+    #ledCtrl(led)
     return render_template('index.html', data=data)
 
 @app.route('/api/fan',methods=['POST'])
 def fanToggle():
     global data
+
     if data['fan'] == 'on':
         data['fan'] = 'off'
         FAN.controlFan(FAN.OFF)
