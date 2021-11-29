@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>테스트</title>
+</head>
+<body>
+    <div id="content">
+        <h1>산딸기</h1>
+        <h2>즐겨찾기</h2>
+        <div class="flex-container">
+            <div class="item" id="bookmark-on-all">
+                <p>전부 켜기</p>
+            </div>
+            <div class="item" id="bookmark-off-all">
+                <p>외출</p>
+            </div>
+        </div>
+        <h2>제어</h2>
+        <div class="flex-container">
+            <div class="item" id="btn-temp">
+                <p class="item-title">온도</p>
+                <span class="item-info" id="temp">{{data.temp}}</span>
+            </div>
+            <div class="item" id="btn-led">
+                <p class="item-title">LED 제어</p>
+                <span class="item-info" id="temp">{{data.led}}</span>
+            </div>
+            <div class="item" id="btn-fan">
+                <p class="item-title">FAN 제어</p>
+                <span class="item-info" id="temp">{{data.led}}</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
