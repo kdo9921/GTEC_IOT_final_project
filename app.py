@@ -15,6 +15,7 @@ def initGPIO():
     LED.initLedModule()
     FAN.initFan(FAN.FAN_PIN1,FAN.FAN_PIN2)
     offAll()
+    getTemp()
 
 def offAll():
     ledCtrl(0)
@@ -70,8 +71,14 @@ def fanToggle():
 def outing():
     global data
     offAll()
+    return render_template('index.html', data=data)
+
+@app.route('/api/fan',methods=['POST'])
+def temp():
+    global data
+    getTemp()
+    return render_template('index.html', data=data)
 
 if __name__=="__main__":
     initGPIO()
-    getTemp()
     app.run(host="0.0.0.0", port="5000",debug=True)
