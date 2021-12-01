@@ -14,13 +14,13 @@
         <h1>산딸기</h1>
         <h2>즐겨찾기</h2>
         <div class="flex-container">
-            <div class="bookmark-item" id="bookmark-off-all" onclick="fieldlessPost('outing');">
+            <div class="item bookmark-item" id="bookmark-off-all" onclick="fieldlessPost('outing');">
                 <span>외출</span>
             </div>
-            <div class="bookmark-item" id="bookmark-led-on-all" onclick="led(5);">
+            <div class="item bookmark-item" id="bookmark-led-on-all" onclick="led(5);">
                 <span>led 전부 켜기</span>
             </div>
-            <div class="bookmark-item" id="bookmark-led-off-all" onclick="led(0);">
+            <div class="item bookmark-item" id="bookmark-led-off-all" onclick="led(0);">
                 <span>led 전부 끄기</span>
             </div>
         </div>
@@ -32,19 +32,19 @@
             </div>
             <div class="item" id="btn-led" onclick="led(1);">
                 <p class="item-title">LED 1</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i>{{data.led[0]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[0]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(2);">
                 <p class="item-title">LED 2</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i>{{data.led[1]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[1]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(3);">
                 <p class="item-title">LED 3</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i>{{data.led[2]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[2]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(4);">
                 <p class="item-title">LED 4</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i>{{data.led[3]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[3]}}</span>
             </div>
             <div class="item" id="btn-fan" onclick="fieldlessPost('fan');">
                 <p class="item-title">FAN</p>

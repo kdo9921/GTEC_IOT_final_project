@@ -37,12 +37,12 @@ def ledCtrl(led):
             ledArr[i] = 'On'
             LED.controlLed(ledPinArr[i], LED.ON)
     else:
-        if ledArr[led] == 'Off':
-            ledArr[led] = 'On'
-            LED.controlLed(ledPinArr[led], LED.ON)
+        if ledArr[led-1] == 'Off':
+            ledArr[led-1] = 'On'
+            LED.controlLed(ledPinArr[led-1], LED.ON)
         else:
-            ledArr[led] = 'Off'
-            LED.controlLed(ledPinArr[led], LED.OFF)
+            ledArr[led-1] = 'Off'
+            LED.controlLed(ledPinArr[led-1], LED.OFF)
 
 @app.route('/',methods=('GET', 'POST'))
 def index():
