@@ -23,3 +23,25 @@ function fieldlessPost(api) {
     document.body.appendChild(form);
     form.submit();	
 }
+
+function getPir() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/pir', true);
+    xhr.responseType='json';
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send();
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            console.log(xhr.response);
+            document.getElementById("pir").innerHTML = xhr.response.result;
+            console.log("통신 성공");
+        } else {
+            document.getElementById("pir").innerHTML = "ERROR";
+            console.log("통신 실패");
+        }
+    }
+}
+
+window.onload = function() {
+    pir = setInterval(getPir, 1000);
+}
