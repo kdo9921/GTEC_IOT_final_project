@@ -16,6 +16,7 @@ ledArr = ['Off','Off','Off','Off']
 ledPinArr = [LED.LED_PIN1,LED.LED_PIN2,LED.LED_PIN3,LED.LED_PIN4]
 data = {'led':ledArr, 'temp':0, 'fan':'Off'}
 pirState = 0
+pir_value = "No"
 
 def initGPIO():
     GPIO.setmode(GPIO.BCM)
@@ -31,24 +32,26 @@ def offAll():
     data['fan'] = 'Off'
 
 def readPir(detect_state):
-    global pirState
+    global pirState, pir_value
     while detect_state:
         input_state = GPIO_EX.input(PIR_PIN)
         if input_state == True:
             if pirState == 0:
                 print("Motion Detected.")
+                pir_value = "Detected"
             pirState = 1
             return 1
         else:
             if pirState == 1:
                 print("Motion Ended.")
+                pir_value = "No"
             pirState = 0
             return 0
 
 def threadReadPir():
     while True:
         readPir(ON)
-        time.sleep(0.5)
+        time.sleep(1)
 
 def getTemp():
     global data
@@ -109,10 +112,7 @@ def temp():
 
 @app.route('/api/pir',methods=['POST'])
 def pir():
-    global pirState
-    pir_value = "No"
-    if pirState == 0:
-        pir_value = "Detected"
+    global pir_value
     return jsonify(result = pir_value)
 
 
