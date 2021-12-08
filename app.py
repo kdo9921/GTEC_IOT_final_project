@@ -5,6 +5,9 @@ import aiy.device._fan as FAN
 import RPi.GPIO as GPIO
 import aiy.device._dht11 as DHT
 import GPIO_EX
+import pygame
+import os
+from gtts import gTTS
 
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
@@ -110,14 +113,54 @@ def temp():
     getTemp()
     return render_template('index.html', data=data)
 
+currentMusic = {'isPlay': False, 'isPause' : False, 'index' : 0}
 @app.route('/api/pir',methods=['POST'])
 def pir():
     global pir_value
     return jsonify(result = pir_value)
 
 
+currentMusic = {'isPlay': False, 'isPause' : False, 'index' : 0}
+@app.route('/api/music',methods=['POST'])
+def music():
+    global currentMusic
+    print("Music 요청 왔음!")
+    isPause = request.form.get('pause')
+    isNext = request.form.get('next')
+    music_list = os.listdir('music')
+    music_list.sort()
+    print(currentMusic)
+    print(music_list)
+    if isNext == "true":
+        currentMusic['index'] += 1
+        currentMusic['index'] = currentMusic['index'] % len(music_list)
+        if currentMusic['isPause']:
+            currentMusic['isPlay'] = False
+        if currentMusic['isPlay']:
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load("music/" + music_list[currentMusic['index']])
+            pygame.mixer.music.play()
+    if isPause == "true":
+        if currentMusic['isPlay']:
+            if currentMusic['isPause']:
+                currentMusic['isPause'] = False
+                pygame.mixer.music.unpause()
+            else:
+                currentMusic['isPause'] = True
+                pygame.mixer.music.pause()
+        else:
+            currentMusic['isPlay'] = True
+            currentMusic['isPause'] = False
+            pygame.mixer.music.load("music/" + music_list[currentMusic['index']])
+            pygame.mixer.music.play()
+
+
 if __name__=="__main__":
     initGPIO()
     t = Thread(target=threadReadPir, args=())
     t.start()
+    pygame.mixer.init()
+    s = gTTS(text = "스마트 홈 제어를 시작합니다",lang='ko', slow=False)
+    s.save('hello.mp3')
+    os.system('mpg321 hello.mp3 &')
     app.run(host="0.0.0.0", port="5000",debug=True)

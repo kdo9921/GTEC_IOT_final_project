@@ -42,6 +42,21 @@ function getPir() {
     }
 }
 
+function musicAjax(pause, next) {
+    var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/music', true);
+        xhr.responseType='json';
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send(`pause=${pause}&next=${next}`);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("통신 성공");
+            } else {
+                console.log("통신 실패");
+            }
+        }
+}
+
 window.onload = function() {
     pir = setInterval(getPir, 1000);
 }

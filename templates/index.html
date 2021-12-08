@@ -50,7 +50,12 @@
                 <p class="item-title">FAN</p>
                 <span class="item-info" id="fan"><i class="fas fa-fan"></i> {{data.fan}}</span>
             </div>
-            <div class="item" id="btn-pir" onclick="fieldlessPost('fan');">
+            <div class="item" id="btn-pir">
+                <p class="item-title">음악 재생</p>
+                <button onclick="musicAjax(true,false);">재생/일시정지</button><br><br>
+                <button onclick="musicAjax(false,true);">다음곡</button>
+            </div>
+            <div class="item" id="btn-pir">
                 <p class="item-title">동작 감시</p>
                 <span class="item-info" id="pir">No</span>
             </div>
