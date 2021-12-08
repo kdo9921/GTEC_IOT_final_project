@@ -7,7 +7,7 @@ import aiy.device._dht11 as DHT
 import GPIO_EX
 import pygame
 import os
-from gtts import gTTS
+#from gtts import gTTS
 
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
@@ -153,14 +153,14 @@ def music():
             currentMusic['isPause'] = False
             pygame.mixer.music.load("music/" + music_list[currentMusic['index']])
             pygame.mixer.music.play()
-
+    return jsonify(result = currentMusic['isPause'])
 
 if __name__=="__main__":
     initGPIO()
+    pygame.mixer.init()
+    #s = gTTS(text = "스마트 홈 제어를 시작합니다",lang='ko', slow=False)
+    #s.save('hello.mp3')
+    os.system('mpg321 hello.mp3 &')
     t = Thread(target=threadReadPir, args=())
     t.start()
-    pygame.mixer.init()
-    s = gTTS(text = "스마트 홈 제어를 시작합니다",lang='ko', slow=False)
-    s.save('hello.mp3')
-    os.system('mpg321 hello.mp3 &')
     app.run(host="0.0.0.0", port="5000",debug=True)

@@ -50,6 +50,7 @@ function musicAjax(pause, next) {
         xhr.send(`pause=${pause}&next=${next}`);
         xhr.onload = function () {
             if (xhr.status == 200) {
+                console.log(xhr.response);
                 console.log("통신 성공");
             } else {
                 console.log("통신 실패");
