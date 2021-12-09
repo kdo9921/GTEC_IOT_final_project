@@ -7,7 +7,7 @@ import aiy.device._dht11 as DHT
 import GPIO_EX
 import pygame
 import os
-#from gtts import gTTS
+from gtts import gTTS
 
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
@@ -20,6 +20,7 @@ ledPinArr = [LED.LED_PIN1,LED.LED_PIN2,LED.LED_PIN3,LED.LED_PIN4]
 data = {'led':ledArr, 'temp':0, 'fan':'Off'}
 pirState = 0
 pir_value = "No"
+isBC = False
 
 def initGPIO():
     GPIO.setmode(GPIO.BCM)
@@ -28,6 +29,9 @@ def initGPIO():
     GPIO_EX.setup(PIR_PIN, GPIO_EX.IN)
     offAll()
     getTemp()
+    t = Thread(target=threadReadPir, args=())
+    t.start()
+
 
 def offAll():
     ledCtrl(0)
@@ -40,13 +44,11 @@ def readPir(detect_state):
         input_state = GPIO_EX.input(PIR_PIN)
         if input_state == True:
             if pirState == 0:
-                print("Motion Detected.")
                 pir_value = "Detected"
             pirState = 1
             return 1
         else:
             if pirState == 1:
-                print("Motion Ended.")
                 pir_value = "No"
             pirState = 0
             return 0
@@ -54,12 +56,22 @@ def readPir(detect_state):
 def threadReadPir():
     while True:
         readPir(ON)
-        time.sleep(1)
+        time.sleep(0.5)
 
 def getTemp():
     global data
-    data['temp'] = DHT.readTemp()
+    temp = DHT.readTemp()
+    data['temp'] = round(temp)
 
+def voice():
+    global data, isBC
+    if isBC:
+        return
+    isBC = True
+    str = "스마트 홈 제어를 시작합니다. 현재 온도는 {}도 입니다. ".format(data['temp'])
+    s = gTTS(text = str,lang='ko', slow=False)
+    s.save('hello.mp3')
+    os.system('mpg321 hello.mp3 &')
 def ledCtrl(led):
     global ledArr
     if led == 0:
@@ -81,6 +93,7 @@ def ledCtrl(led):
 @app.route('/',methods=('GET', 'POST'))
 def index():
     global data
+    voice()
     return render_template('index.html', data=data)
 
 @app.route('/api/led',methods=['POST'])
@@ -124,13 +137,10 @@ currentMusic = {'isPlay': False, 'isPause' : False, 'index' : 0}
 @app.route('/api/music',methods=['POST'])
 def music():
     global currentMusic
-    print("Music 요청 왔음!")
     isPause = request.form.get('pause')
     isNext = request.form.get('next')
     music_list = os.listdir('music')
     music_list.sort()
-    print(currentMusic)
-    print(music_list)
     if isNext == "true":
         currentMusic['index'] += 1
         currentMusic['index'] = currentMusic['index'] % len(music_list)
@@ -158,9 +168,4 @@ def music():
 if __name__=="__main__":
     initGPIO()
     pygame.mixer.init()
-    #s = gTTS(text = "스마트 홈 제어를 시작합니다",lang='ko', slow=False)
-    #s.save('hello.mp3')
-    os.system('mpg321 hello.mp3 &')
-    t = Thread(target=threadReadPir, args=())
-    t.start()
-    app.run(host="0.0.0.0", port="5000",debug=True)
+    app.run(host="0.0.0.0", port="8080",debug=True)

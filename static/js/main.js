@@ -32,9 +32,7 @@ function getPir() {
     xhr.send();
     xhr.onload = function () {
         if (xhr.status == 200) {
-            console.log(xhr.response);
             document.getElementById("pir").innerHTML = xhr.response.result;
-            console.log("통신 성공");
         } else {
             document.getElementById("pir").innerHTML = "ERROR";
             console.log("통신 실패");
@@ -50,7 +48,11 @@ function musicAjax(pause, next) {
         xhr.send(`pause=${pause}&next=${next}`);
         xhr.onload = function () {
             if (xhr.status == 200) {
-                console.log(xhr.response);
+                if (xhr.response.result) {
+                    document.getElementById("music-pause").innerHTML = `<i class="fas fa-play"></i>`;
+                } else {
+                    document.getElementById("music-pause").innerHTML = `<i class="fas fa-pause"></i>`;
+                }
                 console.log("통신 성공");
             } else {
                 console.log("통신 실패");
@@ -59,5 +61,5 @@ function musicAjax(pause, next) {
 }
 
 window.onload = function() {
-    pir = setInterval(getPir, 1000);
+    pir = setInterval(getPir, 500);
 }

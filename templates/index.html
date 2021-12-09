@@ -32,28 +32,28 @@
             </div>
             <div class="item" id="btn-led" onclick="led(1);">
                 <p class="item-title">LED 1</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[0]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb led{{data.led[0]}}"></i> {{data.led[0]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(2);">
                 <p class="item-title">LED 2</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[1]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb led{{data.led[1]}}"></i> {{data.led[1]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(3);">
                 <p class="item-title">LED 3</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[2]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb led{{data.led[2]}}"></i> {{data.led[2]}}</span>
             </div>
             <div class="item" id="btn-led" onclick="led(4);">
                 <p class="item-title">LED 4</p>
-                <span class="item-info" id="temp"><i class="far fa-lightbulb"></i> {{data.led[3]}}</span>
+                <span class="item-info" id="temp"><i class="far fa-lightbulb led{{data.led[3]}}"></i> {{data.led[3]}}</span>
             </div>
             <div class="item" id="btn-fan" onclick="fieldlessPost('fan');">
                 <p class="item-title">FAN</p>
-                <span class="item-info" id="fan"><i class="fas fa-fan"></i> {{data.fan}}</span>
+                <span class="item-info" id="fan"><i class="fas fa-fan fan{{data.fan}}"></i> {{data.fan}}</span>
             </div>
-            <div class="item" id="btn-pir">
+            <div class="item" id="btn-music">
                 <p class="item-title">음악 재생</p>
-                <button onclick="musicAjax(true,false);">재생/일시정지</button><br><br>
-                <button onclick="musicAjax(false,true);">다음곡</button>
+                <span class="music-control" id="music-pause" onclick="musicAjax(true,false);"><i class="fas fa-play"></i></span>
+                <span class="music-control" onclick="musicAjax(false,true);"><i class="fas fa-forward"></i></span>
             </div>
             <div class="item" id="btn-pir">
                 <p class="item-title">동작 감시</p>

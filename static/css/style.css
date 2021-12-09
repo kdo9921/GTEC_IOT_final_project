@@ -1,5 +1,5 @@
 body {
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/b/b1/Raspberry_pie.jpg");
+    background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -45,4 +45,30 @@ h1, h2 {
 }
 .item-info {
     font-size: 2.5em;
+}
+.music-control {
+    font-size: 1.6em;
+    margin: 8px;
+}
+.ledOn {
+    color : orange;
+}
+.ledOff {
+    color: black;
+}
+.fanOn {
+    color: #50bcdf;
+    animation: rotate_image 6s linear infinite;
+    transform-origin: 50% 50%;
+}
+.fanOff {
+    color: black;
+}
+@keyframes rotate_image{ 
+    100% { 
+        transform: rotate(360deg); 
+    } 
+}
+#btn-pir {
+    min-width: 161px;
 }
