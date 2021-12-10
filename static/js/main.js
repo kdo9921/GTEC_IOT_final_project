@@ -61,5 +61,5 @@ function musicAjax(pause, next) {
 }
 
 window.onload = function() {
-    pir = setInterval(getPir, 500);
+    pir = setInterval(getPir, 1000);
 }
