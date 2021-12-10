@@ -159,6 +159,7 @@ def music():
             pygame.mixer.music.stop()
             pygame.mixer.music.load("music/" + music_list[currentMusic['index']])
             pygame.mixer.music.play()
+            message("노래 재생중 : " + music_list[currentMusic['index']])
     if isPause == "true":
         if currentMusic['isPlay']:
             if currentMusic['isPause']:
@@ -172,6 +173,7 @@ def music():
             currentMusic['isPause'] = False
             pygame.mixer.music.load("music/" + music_list[currentMusic['index']])
             pygame.mixer.music.play()
+            message("노래 재생중 : " + music_list[currentMusic['index']])
     return jsonify(result = currentMusic['isPause'])
 
 if __name__=="__main__":
