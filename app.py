@@ -7,6 +7,8 @@ import aiy.device._dht11 as DHT
 import GPIO_EX
 import pygame
 import os
+import telepot
+import t_token
 from gtts import gTTS
 
 from flask import Flask, render_template, request, jsonify
@@ -21,6 +23,11 @@ data = {'led':ledArr, 'temp':0, 'fan':'Off'}
 pirState = 0
 pir_value = "No"
 isBC = False
+
+def message(msg):
+    bot = telepot.Bot(token=t_token.token)
+    chat_id = t_token.id
+    bot.sendMessage(chat_id=chat_id, text=msg)
 
 def initGPIO():
     GPIO.setmode(GPIO.BCM)
@@ -69,6 +76,8 @@ def voice():
         return
     isBC = True
     str = "스마트 홈 제어를 시작합니다. 현재 온도는 {}도 입니다. ".format(data['temp'])
+    if int(data['temp']) > 20:
+        message("온도가 20도 이상입니다. 현재 온도 {}C".format(data['temp']))
     s = gTTS(text = str,lang='ko', slow=False)
     s.save('hello.mp3')
     os.system('mpg321 hello.mp3 &')
