@@ -129,10 +129,12 @@ def outing():
     offAll()
     return render_template('index.html', data=data)
 
-@app.route('/api/fan',methods=['POST'])
+@app.route('/api/temp',methods=['POST'])
 def temp():
     global data
     getTemp()
+    if int(data['temp']) > 20:
+        message("온도가 20도 이상입니다. 현재 온도 {}C".format(data['temp']))
     return render_template('index.html', data=data)
 
 currentMusic = {'isPlay': False, 'isPause' : False, 'index' : 0}
