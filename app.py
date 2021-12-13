@@ -8,6 +8,8 @@ import GPIO_EX
 import pygame
 import os
 import telepot
+import requests
+from bs4 import BeautifulSoup
 import t_token
 from gtts import gTTS
 
@@ -19,7 +21,7 @@ ON = 1
 OFF = 0
 ledArr = ['Off','Off','Off','Off']
 ledPinArr = [LED.LED_PIN1,LED.LED_PIN2,LED.LED_PIN3,LED.LED_PIN4]
-data = {'led':ledArr, 'temp':0, 'fan':'Off'}
+data = {'led':ledArr, 'temp':0, 'fan':'Off', 'weather':''}
 pirState = 0
 pir_value = "No"
 isBC = False
@@ -36,9 +38,20 @@ def initGPIO():
     GPIO_EX.setup(PIR_PIN, GPIO_EX.IN)
     offAll()
     getTemp()
+    getWeather()
     t = Thread(target=threadReadPir, args=())
     t.start()
 
+def getWeather():
+    global data
+    URL = "https://weather.naver.com"
+    response = requests.get(URL)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    current = soup.select_one(".weather_area .current").get_text()
+    weather = soup.select_one(".weather_area .summary .weather").get_text()
+    current.replace("온도", "온도 ")
+    data['weather'] = current + " / " + weather
 
 def offAll():
     ledCtrl(0)
